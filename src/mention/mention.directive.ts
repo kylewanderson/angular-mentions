@@ -49,6 +49,7 @@ export class MentionDirective implements OnInit, OnChanges {
 
   // event emitted whenever the search term changes
   @Output() searchTerm = new EventEmitter();
+  @Output() itemSelected = new EventEmitter();
 
   // the character that will trigger the menu behavior
   private triggerChar: string | number = "@";
@@ -64,7 +65,10 @@ export class MentionDirective implements OnInit, OnChanges {
   private maxItems:number = -1;
 
   // optional function to format the selected item before inserting the text
-  private mentionSelect: (item: any) => (string) = (item: any) => this.triggerChar + item[this.labelKey];
+  private mentionSelect: (item: any) => (string) = (item: any) => {
+    this.itemSelected.emit(item);
+    return this.triggerChar + item[this.labelKey];
+  }
 
   searchString: string;
   startPos: number;
