@@ -2,7 +2,7 @@ import { element, by, protractor } from 'protractor';
 
 import { AngularMentionsPage } from './app.po';
 
-describe('angular-mentions app', function() {
+describe('mentions-for-angular app', function() {
   let page: AngularMentionsPage;
 
   beforeEach(() => {
