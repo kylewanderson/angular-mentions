@@ -1,6 +1,6 @@
 {
   "name": "mentions-for-angular",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Angular mentions for text fields.",
   "keywords": [
     "angular",
@@ -26,6 +26,7 @@
   },
   "private": false,
   "peerDependencies": {
+    "@angular/common": "6.0.0",
     "@angular/core": "6.0.0"
   },
   "devDependencies": {

@@ -66,6 +66,7 @@ export class MentionDirective implements OnInit, OnChanges {
 
   // optional function to format the selected item before inserting the text
   private mentionSelect: (item: any) => (string) = (item: any) => {
+    console.log('mention selected', item);
     this.itemSelected.emit(item);
     return this.triggerChar + item[this.labelKey];
   }
