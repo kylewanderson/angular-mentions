@@ -64,5 +64,8 @@
   },
   "files": [
     "mention"
-  ]
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.10"
+  }
 }

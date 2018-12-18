@@ -20,6 +20,7 @@ import { getCaretCoordinates } from './caret-coords';
         height: auto;
         max-height: 300px;
         overflow: auto;
+        background-color: white;
       }
     `,`
       [hidden] {

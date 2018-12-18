@@ -42,6 +42,7 @@ export class MentionDirective implements OnInit, OnChanges {
     this.disableSearch = config.disableSearch || this.disableSearch;
     this.maxItems = config.maxItems || this.maxItems;
     this.mentionSelect = config.mentionSelect || this.mentionSelect;
+    this.htmlStyling = config.htmlStyling || false;
   }
 
   // template to use for rendering list items
@@ -64,11 +65,12 @@ export class MentionDirective implements OnInit, OnChanges {
   // option to limit the number of items shown in the pop-up menu
   private maxItems:number = -1;
 
+  private htmlStyling:boolean = false;
+
   // optional function to format the selected item before inserting the text
   private mentionSelect: (item: any) => (string) = (item: any) => {
-    console.log('mention selected', item);
     this.itemSelected.emit(item);
-    return this.triggerChar + item[this.labelKey];
+    return this.htmlStyling ? `<span style='color: #0065FF; background: rgba(0,101,255,.2)>${this.triggerChar}${item[this.labelKey]}</span>` : this.triggerChar + item[this.labelKey];
   }
 
   searchString: string;
