@@ -4,6 +4,24 @@
 <p style="color:grey">Supports auto-complete for mentions in text input fields, text areas,
 and content editable fields. Try entering some @names below.</p>
 
+<h3>Quill</h3>
+<quill-editor
+  [mention]="items" 
+  [mentionConfig]="{htmlStyling: true}"
+  [style]="{'border-style':'solid', 'border-width':'1px'}"
+  [modules]="{
+    toolbar: [[{ 'header': 1 }, { 'list': 'bullet' }, 'bold', 'italic' ],
+              ['clean'],
+              [{'color': ['blue']}]],
+    clipboard: { matchVisual: false },
+    keyboard: {
+    bindings: {enter: false}
+    }
+  }"
+  [placeholder]="'Enter your text here'"
+  [theme]="'bubble'"
+  (onEditorCreated)="onEditorCreated($event)">
+</quill-editor>
 <h3>Minimal</h3>
 <input [mention]="items" [mentionConfig]="{htmlStyling: true}" class="form-control" type="text">
 

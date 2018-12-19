@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './demo-async/in-memory-data.service';
+import {QuillModule} from 'ngx-quill';
 
 import { AppComponent } from './app.component';
 import { MentionModule } from '../mention/mention.module';
@@ -18,7 +20,9 @@ import { DemoTinymceComponent } from './demo-tinymce/demo-tinymce.component';
     BrowserModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 }),
-    MentionModule
+    MentionModule,
+    QuillModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,

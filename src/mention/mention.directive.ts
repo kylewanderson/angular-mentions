@@ -70,7 +70,8 @@ export class MentionDirective implements OnInit, OnChanges {
   // optional function to format the selected item before inserting the text
   private mentionSelect: (item: any) => (string) = (item: any) => {
     this.itemSelected.emit(item);
-    return this.htmlStyling ? `<span style='color: #0065FF; background: rgba(0,101,255,.2)>${this.triggerChar}${item[this.labelKey]}</span>` : this.triggerChar + item[this.labelKey];
+    //return this.htmlStyling ? `<span style="color: #0065FF; background: rgba(0,101,255,.2)">${this.triggerChar}${item[this.labelKey]}</span> ` : this.triggerChar + item[this.labelKey];
+    return this.triggerChar + item[this.labelKey];
   }
 
   searchString: string;
@@ -136,6 +137,7 @@ export class MentionDirective implements OnInit, OnChanges {
   }
 
   keyHandler(event: any, nativeElement: HTMLInputElement = this._element.nativeElement) {
+    console.log('_element', this._element);
     let val: string = getValue(nativeElement);
     let pos = getCaretPosition(nativeElement, this.iframe);
     let charPressed = this.keyCodeSpecified ? event.keyCode : event.key;
