@@ -15,6 +15,6 @@ export class AppComponent {
   //quillString: string = "here is my value";
   onEditorCreated(editor) {
     editor.keyboard.bindings['13'] = undefined;
-    console.log('inner html', document.querySelector(".ql-editor").innerHTML);
+    //console.log('inner html', document.querySelector(".ql-editor").innerHTML);
   }
 }

@@ -69,7 +69,6 @@ export function setCaretPosition(el: HTMLInputElement, pos: number, iframe: HTML
 }
 
 export function getCaretPosition(el: HTMLInputElement, iframe: HTMLIFrameElement = null) {
-  //console.log("getCaretPosition", el);
   if (isInputOrTextAreaElement(el)) {
     var val = el.value;
     return val.slice(0, el.selectionStart).length;
@@ -77,10 +76,8 @@ export function getCaretPosition(el: HTMLInputElement, iframe: HTMLIFrameElement
   else {
     var selObj = getWindowSelection(iframe); //window.getSelection();
     if (selObj.rangeCount>0) {
-      //console.log('selObj', selObj);
       var selRange = selObj.getRangeAt(0);
       var position = selRange.startOffset;
-      //console.log('returning position', position);
       return position;
     }
   }

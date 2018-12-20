@@ -137,7 +137,6 @@ export class MentionDirective implements OnInit, OnChanges {
   }
 
   keyHandler(event: any, nativeElement: HTMLInputElement = this._element.nativeElement) {
-    console.log('native element', nativeElement);
     let val: string = getValue(nativeElement);
     let pos = getCaretPosition(nativeElement, this.iframe);
     let charPressed = this.keyCodeSpecified ? event.keyCode : event.key;
@@ -201,18 +200,33 @@ export class MentionDirective implements OnInit, OnChanges {
             if (this.htmlStyling) {
               let quillElement = document.querySelector(".ql-editor");
               let innerHtml = quillElement.innerHTML;
-              console.log('innerHtml', innerHtml);
-              console.log('typeof innerHtml', typeof innerHtml);
-              console.log('textValue', textValue);
-              console.log('indexof textValue', innerHtml.indexOf(textValue));
-              innerHtml = innerHtml.replace(textValue, 
-                '<span style="color: #0065FF; background: rgba(0,101,255,.2)">'+
+              let strings = innerHtml.split(textValue);
+              if (strings.length === 2) {
+                innerHtml = strings[0] +
+                '<span id="mention'+textValue.substring(1)+''+(strings.length-1)+
+                '" style="color: #0065FF; background: rgba(0,101,255,.2)">'+
                 textValue +
-                '</span> ');
-              console.log('replaced innerHtml', innerHtml);
+                '</span> ' + strings[1];
+              } else {
+                let openSpan = false;
+                innerHtml = strings.reduce((total, current, currentIndex) => {
+                  if (current.indexOf('mention'+textValue.substring(1))> 0) {
+                    return total + (openSpan?'</span> ':'')+ current + textValue;
+                  } else if (openSpan) {
+                    return total +'</span> '+ (currentIndex < strings.length -1 ? current+textValue:current);
+                  } else {
+                    openSpan = true;
+                    return total + current +
+                      '<span id="mention'+textValue.substring(1)+''+(strings.length-1)+
+                      '" style="color: #0065FF; background: rgba(0,101,255,.2)">'+
+                      textValue;
+                  }
+                }, '');
+              }
               quillElement.innerHTML=innerHtml;
-              console.log('nativeElement', nativeElement);
-              console.log('ql-editor', document.querySelector(".ql-editor").innerHTML);
+              let mentionElement: HTMLInputElement = 
+              <HTMLInputElement>document.getElementById('mention'+textValue.substring(1)+''+(strings.length-1));
+              setCaretPosition(<HTMLInputElement>mentionElement.nextSibling, 1);
             }
             // fire input event so angular bindings are updated
             if ("createEvent" in document) {
