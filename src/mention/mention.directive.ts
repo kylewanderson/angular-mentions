@@ -137,7 +137,7 @@ export class MentionDirective implements OnInit, OnChanges {
   }
 
   keyHandler(event: any, nativeElement: HTMLInputElement = this._element.nativeElement) {
-    console.log('_element', this._element);
+    console.log('native element', nativeElement);
     let val: string = getValue(nativeElement);
     let pos = getCaretPosition(nativeElement, this.iframe);
     let charPressed = this.keyCodeSpecified ? event.keyCode : event.key;
@@ -196,8 +196,24 @@ export class MentionDirective implements OnInit, OnChanges {
             this.searchList.hidden = true;
             // value is inserted without a trailing space for consistency
             // between element types (div and iframe do not preserve the space)
-            insertValue(nativeElement, this.startPos, pos,
-              this.mentionSelect(this.searchList.activeItem), this.iframe);
+            let textValue = this.mentionSelect(this.searchList.activeItem);
+            insertValue(nativeElement, this.startPos, pos, textValue, this.iframe);
+            if (this.htmlStyling) {
+              let quillElement = document.querySelector(".ql-editor");
+              let innerHtml = quillElement.innerHTML;
+              console.log('innerHtml', innerHtml);
+              console.log('typeof innerHtml', typeof innerHtml);
+              console.log('textValue', textValue);
+              console.log('indexof textValue', innerHtml.indexOf(textValue));
+              innerHtml = innerHtml.replace(textValue, 
+                '<span style="color: #0065FF; background: rgba(0,101,255,.2)">'+
+                textValue +
+                '</span> ');
+              console.log('replaced innerHtml', innerHtml);
+              quillElement.innerHTML=innerHtml;
+              console.log('nativeElement', nativeElement);
+              console.log('ql-editor', document.querySelector(".ql-editor").innerHTML);
+            }
             // fire input event so angular bindings are updated
             if ("createEvent" in document) {
               var evt = document.createEvent("HTMLEvents");

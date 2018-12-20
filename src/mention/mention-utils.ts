@@ -7,11 +7,7 @@ function setValue(el: HTMLInputElement, value: any) {
     el.value = value;
   }
   else {
-    console.log('value', value);
-    //el.parentNode.parentNode.innerHTML = value;
-    el.innerHTML = value;
-    //el.textContent = value;
-    //document.querySelector(".ql-editor").innerHTML = value;
+    el.textContent = value;
   }
 }
 
@@ -20,7 +16,7 @@ export function getValue(el: HTMLInputElement) {
 }
 
 export function insertValue(
-  el: any,
+  el: HTMLInputElement,
   start: number,
   end: number,
   text: string,
@@ -29,16 +25,10 @@ export function insertValue(
 ) {
   //console.log("insertValue", el.nodeName, start, end, "["+text+"]", el);
   if (isTextElement(el)) {
-    console.log('element parentNode', el.parentNode);
-    console.log('element parentNode node html', el.parentNode.innerHTML);
-    console.log('element grandparentNode innerHTML', el.parentNode.parentNode.innerHTML);
 
-    el = el.parentNode;
     let val = getValue(el);
-    setValue(el, 
-             `${val.substring(0, start)}<span style="color: #0065FF; background: rgba(0,101,255,.2)">${text}</span> ${val.substring(end, val.length)}`); 
-    console.log('el child nodes', el.childNodes);
-    setCaretPosition(el.childNodes[el.childNodes.length-1], 1, iframe);
+    setValue(el, val.substring(0, start) + text + val.substring(end, val.length));
+    setCaretPosition(el, start + text.length, iframe);
   }
   else if (!noRecursion) {
     let selObj: Selection = getWindowSelection(iframe);
