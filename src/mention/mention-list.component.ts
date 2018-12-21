@@ -21,6 +21,9 @@ import { getCaretCoordinates } from './caret-coords';
         max-height: 300px;
         overflow: auto;
         background-color: white;
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+        padding: 8px 8px 8px 8px;
       }
     `,`
       [hidden] {
@@ -28,7 +31,7 @@ import { getCaretCoordinates } from './caret-coords';
       }
     `,`
       li.active {
-        background-color: #f7f7f9;
+        background-color: rgba(0,101,255,.2);
       }
     `],
   template: `
