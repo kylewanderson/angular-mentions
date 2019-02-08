@@ -15,6 +15,9 @@ import { getCaretCoordinates } from './caret-coords';
 @Component({
   selector: 'mention-list',
   styles: [`
+      :host {
+        z-index: 1000;
+      }`,`
       .scrollable-menu {
         display: block;
         height: auto;
@@ -40,7 +43,7 @@ import { getCaretCoordinates } from './caret-coords';
     </ng-template>
     <ul #list [hidden]="hidden" class="dropdown-menu scrollable-menu">
         <li *ngFor="let item of items; let i = index" [class.active]="activeIndex==i">
-            <a class="dropdown-item" (mousedown)="activeIndex=i;itemClick.emit();$event.preventDefault()">
+            <a class="dropdown-item" (mouseenter)="activeIndex=i" (mousedown)="activeIndex=i;itemClick.emit();$event.preventDefault()">
               <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{'item':item}"></ng-template>
             </a>
         </li>
@@ -92,7 +95,7 @@ export class MentionListComponent implements OnInit {
     let el: HTMLElement = this._element.nativeElement;
     el.style.position = "absolute";
     el.style.left = coords.left + 'px';
-    el.style.top = coords.top + 'px';
+    el.style.top = coords.top - 12 + 'px';
   }
 
   get activeItem() {
