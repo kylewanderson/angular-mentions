@@ -7,7 +7,7 @@ and content editable fields. Try entering some @names below.</p>
 <h3>Quill</h3>
 <quill-editor
   [mention]="items" 
-  [mentionConfig]="{htmlStyling: true}"
+  [mentionConfig]="{labelKey:'displayName', htmlStyling: true, maxItems:5}"
   [style]="{'border-style':'solid', 'border-width':'1px'}"
   [modules]="{
     toolbar: [[{ 'header': 1 }, { 'list': 'bullet' }, 'bold', 'italic' ],
