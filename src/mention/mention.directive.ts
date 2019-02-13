@@ -279,7 +279,17 @@ export class MentionDirective implements OnInit, OnChanges {
       // disabling the search relies on the async operation to do the filtering
       if (!this.disableSearch && this.searchString) {
         let searchStringLowerCase = this.searchString.toLowerCase();
-        objects = this.items.filter(e => e[this.labelKey].toLowerCase().startsWith(searchStringLowerCase));
+        //objects = this.items.filter(e => e[this.labelKey].toLowerCase().startsWith(searchStringLowerCase));
+        objects = this.items.filter(e => {
+          let matched: boolean = false;
+          for (let property in e) {
+            if(typeof e[property] === "string") {
+              matched = e[property].toLowerCase().includes(searchStringLowerCase);
+            }
+            if (matched) {break;}
+          }
+          return matched;
+        });
       }
       matches = objects;
       if (this.maxItems > 0) {
